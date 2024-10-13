@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\OfficeController;
+use App\Http\Controllers\Admin\WarehouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +25,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     /* reset password */
     Route::get('reset-password/{token}', [AuthController::class, 'ResetPassword'])->name('reset-password');
     Route::post('reset-password', [AuthController::class, 'handleResetPassword'])->name('reset-password.send');
-
 });
 
 /* set middleware 'middleware' => ['auth:sanctum', 'admin']] */
@@ -32,4 +32,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
 
     /* office */
     Route::apiResource('office', OfficeController::class);
+
+    /* warehouse */
+    Route::apiResource('warehouse', WarehouseController::class);
 });
