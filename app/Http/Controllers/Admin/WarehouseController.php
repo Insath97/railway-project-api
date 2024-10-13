@@ -3,63 +3,68 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\WarehouseResource;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
 class WarehouseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $warehouses = Warehouse::where('delete_status', 1)->get();
+
+        if ($warehouses->isEmpty()) {
+            return response()->json(['message' => 'No Data Found'], 200);
+        }
+        return WarehouseResource::collection($warehouses);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    public function create() {}
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $warehouses = Warehouse::create($request->validated());
+
+        return response()->json([
+            'message' => 'Warehouse created successfully',
+            'data' => $warehouses,
+        ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(string $warehouse)
     {
-        //
+        $warehouses = Warehouse::find($warehouse);
+
+        return response()->json([
+            'data' => new WarehouseResource($warehouses),
+        ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit(string $id) {}
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $warehouses = Warehouse::findOrFail($id);
+        $warehouses->update($request->all());
+
+        return response()->json([
+            'message' => 'Warehouse updated successfully',
+            'data' => $warehouses,
+        ], 201);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $warehouses = Warehouse::findOrFail($id);
+        $warehouses->delete_status = 0;
+        $warehouses->save();
+
+        return response()->json(
+            [
+                'message' => 'Warehouse deleted successfully',
+            ],
+            200
+        );
     }
 }

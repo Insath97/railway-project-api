@@ -58,9 +58,9 @@ class OfficeController extends Controller
 
     public function destroy(string $id)
     {
-        $office = Office::findOrFail($id);
-        $office->delete_status = 0;
-        $office->save();
+        $offices = Office::findOrFail($id);
+        $offices->delete_status = 0;
+        $offices->save();
 
         return response()->json(
             [
