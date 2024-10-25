@@ -41,14 +41,8 @@ class HandleLoginRequest extends FormRequest
         ], 422));
     }
 
-    public function authenticate(): void
+    public function authenticate(): bool
     {
-
-        if (!Auth::guard('admin')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
-            ]);
-        }
+        return Auth::guard('admin')->attempt($this->only('email', 'password'), $this->boolean('remember'));
     }
 }

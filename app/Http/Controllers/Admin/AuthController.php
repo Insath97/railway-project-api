@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HandleLoginRequest;
 use App\Http\Requests\SendResetLinkRequest;
+use App\Http\Resources\AdminLoginResource;
 use App\Mail\PasswordResetMail;
 use App\Models\Admin;
 use Illuminate\Http\Request;
@@ -31,7 +32,10 @@ class AuthController extends Controller
             'message' => 'Login successful',
             'token' => $token
         ], 200);
+
+        /* return new AdminLoginResource($admin->setAttribute('plainTextToken', $token)); */
     }
+
 
     public function logout(Request $request)
     {
