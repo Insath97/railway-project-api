@@ -28,7 +28,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 });
 
 /* set middleware 'middleware' => ['auth:sanctum', 'admin']] */
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanctum', 'admin']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanctum']], function () {
 
     /* office */
     Route::apiResource('office', OfficeController::class);
