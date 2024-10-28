@@ -7,6 +7,7 @@ use App\Http\Requests\StoreOfficeRequest;
 use App\Http\Requests\UpdateOfficeRequest;
 use App\Http\Resources\OfficeResource;
 use App\Models\Office;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class OfficeController extends Controller
@@ -68,5 +69,19 @@ class OfficeController extends Controller
             ],
             200
         );
+    }
+
+    public function getOffices(): JsonResponse
+    {
+        $offices = Office::where('delete_status', 1)
+            ->select('id', 'code', 'office_name')
+            ->orderBy('office_name', 'asc')
+            ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Offices retrieved successfully',
+            'data' => $offices
+        ], 200);
     }
 }

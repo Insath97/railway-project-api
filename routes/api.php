@@ -3,14 +3,10 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\OfficeController;
 use App\Http\Controllers\Admin\WarehouseController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 /* without middleware using */
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     /* handle login */
@@ -31,6 +27,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanctum']], function () {
 
     /* office */
+    Route::get('get-office', [OfficeController::class, 'getOffices'])->name('get-office');
     Route::apiResource('office', OfficeController::class);
 
     /* warehouse */
