@@ -25,7 +25,7 @@ class UpdateOfficeRequest extends FormRequest
     {
         $id = $this->route('office');
         return [
-            'code' => ['required', 'unique:offices,code' . $id, 'max:5'],
+            'code' => ['required', 'unique:offices,code,' . $id, 'max:5'],
             'office_name' => ['required', 'string', 'max:255'],
             'address' => ['nullable', 'string', 'max:500'],
             'phone_number' => ['nullable', 'regex:/^(?:\+94|0)?7[0-9]{8}$/'],

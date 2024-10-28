@@ -49,7 +49,7 @@ class OfficeController extends Controller
     public function update(UpdateOfficeRequest $request, string $id)
     {
         $offices = Office::findOrFail($id);
-        $offices->update($request->all());
+        $offices->update($request->validated());
 
         return response()->json([
             'message' => 'Office updated successfully',
