@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\MainCategoriesController;
 use App\Http\Controllers\Admin\OfficeController;
+use App\Http\Controllers\Admin\SubCategoriesController;
 use App\Http\Controllers\Admin\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,8 +23,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     /* reset password */
     Route::get('reset-password/{token}', [AuthController::class, 'ResetPassword'])->name('reset-password');
     Route::post('reset-password', [AuthController::class, 'handleResetPassword'])->name('reset-password.send');
-
-    Route::apiResource('MainCategory', MainCategoriesController::class);
 });
 
 /* set middleware 'middleware' => ['auth:sanctum', 'admin']] */
@@ -37,5 +36,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
     Route::apiResource('warehouse', WarehouseController::class);
 
     /* MainCategories */
+    Route::apiResource('MainCategory', MainCategoriesController::class);
 
+    /* Subcategory  */
+    Route::apiResource('Subcategory', SubCategoriesController::class);
 });
