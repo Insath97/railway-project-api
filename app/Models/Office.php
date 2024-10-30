@@ -18,4 +18,9 @@ class Office extends Model
         'is_head_office',
         'delete_status'
     ];
+
+    public function warehouse()
+    {
+        return $this->hasMany(Warehouse::class);
+    }
 }
