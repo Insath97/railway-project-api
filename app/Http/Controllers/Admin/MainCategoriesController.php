@@ -69,4 +69,18 @@ class MainCategoriesController extends Controller
             200
         );
     }
+
+    public function getMainCategory()
+    {
+        $MainCategories = MainCategory::where('delete_status', 1)
+            ->select('id', 'code', 'name')
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Main Category retrieved successfully',
+            'data' => $MainCategories
+        ], 200);
+    }
 }
