@@ -24,4 +24,14 @@ class Warehouse extends Model
     {
         return $this->belongsTo(Office::class);
     }
+
+    public function productStocks()
+    {
+        return $this->hasMany(ProductStock::class);
+    }
+
+    public function stockTransactions()
+    {
+        return $this->hasMany(StockTransaction::class);
+    }
 }

@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\MainCategoriesController;
 use App\Http\Controllers\Admin\OfficeController;
+use App\Http\Controllers\Admin\Product_StockController;
+use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\SubCategoriesController;
 use App\Http\Controllers\Admin\UnitTypeController;
 use App\Http\Controllers\Admin\WarehouseController;
@@ -24,9 +26,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     /* reset password */
     Route::get('reset-password/{token}', [AuthController::class, 'ResetPassword'])->name('reset-password');
     Route::post('reset-password', [AuthController::class, 'handleResetPassword'])->name('reset-password.send');
-
-    /* unit type */
-    Route::apiResource('unitType', UnitTypeController::class);
 });
 
 /* set middleware 'middleware' => ['auth:sanctum', 'admin']] */
@@ -44,4 +43,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
 
     /* Subcategory  */
     Route::apiResource('Subcategory', SubCategoriesController::class);
+
+    /* unit type */
+    Route::apiResource('unitType', UnitTypeController::class);
+
+    /* products */
+    Route::apiResource('products', ProductsController::class);
+
+    /* product stocks in or out */
+    Route::apiResource('product-stock', Product_StockController::class);
 });

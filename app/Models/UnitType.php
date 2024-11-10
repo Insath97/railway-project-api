@@ -11,6 +11,12 @@ class UnitType extends Model
 
     protected $fillable = [
         'name',
+        'abbreviation',
         'delete_status'
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

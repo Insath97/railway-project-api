@@ -19,4 +19,9 @@ class MainCategory extends Model
     {
         return $this->hasMany(SubCategory::class);
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'main_category_id');
+    }
 }
