@@ -68,4 +68,18 @@ class UnitTypeController extends Controller
             200
         );
     }
+
+    public function getUnitType()
+    {
+        $unitType = UnitType::where('delete_status', 1)
+            ->select('id', 'name')
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Unit Type retrieved successfully',
+            'data' => $unitType
+        ], 200);
+    }
 }

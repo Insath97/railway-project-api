@@ -76,4 +76,18 @@ class SubCategoriesController extends Controller
             200
         );
     }
+
+    public function getSubCategory()
+    {
+        $subCategory = SubCategory::where('delete_status', 1)
+            ->select('id', 'code', 'name')
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Sub Category retrieved successfully',
+            'data' => $subCategory
+        ], 200);
+    }
 }
