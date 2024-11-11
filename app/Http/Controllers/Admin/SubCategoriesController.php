@@ -92,7 +92,7 @@ class SubCategoriesController extends Controller
                 'status' => 'error',
                 'message' => 'No Sub Categories found for the specified Main Category',
                 'data' => []
-            ], 404);
+            ], 200;
         }
 
         return response()->json([
