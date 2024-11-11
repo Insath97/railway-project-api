@@ -79,7 +79,11 @@ class SubCategoriesController extends Controller
 
     public function getSubCategory(Request $request)
     {
-        $mainCategoryId = $request->main_category_id; 
+        $request->validate([
+            'main_category_id' => 'required|integer|exists:main_categories,id'
+        ]);
+
+        $mainCategoryId = $request->main_category_id;
 
         $subCategory = SubCategory::where([
             'main_category_id' => $mainCategoryId,
