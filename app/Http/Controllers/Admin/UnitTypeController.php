@@ -25,7 +25,10 @@ class UnitTypeController extends Controller
 
     public function store(StoreUnitTypeRequest $request)
     {
-        $unitType = UnitType::create($request->validated());
+        $unitType = new UnitType();
+        $unitType->name = $request->name;
+        $unitType->abbreviation = $request->abbreviation;
+        $unitType->save();
 
         return response()->json([
             'message' => 'Unit Type created successfully',
@@ -47,7 +50,9 @@ class UnitTypeController extends Controller
     public function update(UpdateUnitTypeRequest $request, string $id)
     {
         $unitType = UnitType::findOrFail($id);
-        $unitType->update($request->validated());
+        $unitType->name = $request->name;
+        $unitType->abbreviation = $request->abbreviation;
+        $unitType->save();
 
         return response()->json([
             'message' => 'Unit Type updated successfully',
