@@ -77,9 +77,9 @@ class SubCategoriesController extends Controller
         );
     }
 
-    public function getSubCategory()
+    public function getSubCategory(Request $request)
     {
-        $subCategory = SubCategory::where('delete_status', 1)
+        $subCategory = SubCategory::where(['main_category_id' => $request->main_category_id, 'delete_status' => 1])
             ->select('id', 'code', 'name')
             ->orderBy('name', 'asc')
             ->get();
