@@ -79,14 +79,27 @@ class SubCategoriesController extends Controller
 
     public function getSubCategory(Request $request)
     {
-        $subCategory = SubCategory::where(['main_category_id' => 1, 'delete_status' => 1])
+        $mainCategoryId = $request->main_category_id; 
+
+        $subCategory = SubCategory::where([
+            'main_category_id' => $mainCategoryId,
+            'delete_status' => 1
+        ])
             ->select('id', 'code', 'name')
             ->orderBy('name', 'asc')
             ->get();
 
+        if ($subCategory->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No Sub Categories found for the specified Main Category',
+                'data' => []
+            ], 404);
+        }
+
         return response()->json([
             'status' => 'success',
-            'message' => 'Sub Category retrieved successfully',
+            'message' => 'Sub Categories retrieved successfully',
             'data' => $subCategory
         ], 200);
     }
