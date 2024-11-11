@@ -43,7 +43,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
     Route::apiResource('MainCategory', MainCategoriesController::class);
 
     /* Subcategory  */
-    Route::get('get-sub-category', [SubCategoriesController::class, 'getSubCategory']);
+    Route::get('get-sub-category/{id}', [SubCategoriesController::class, 'getSubCategory']);
     Route::apiResource('Subcategory', SubCategoriesController::class);
 
     /* unit type */
