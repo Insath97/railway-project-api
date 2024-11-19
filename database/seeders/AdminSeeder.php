@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Aadmin;
 use App\Models\Admin;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,7 +16,7 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = new Admin();
+        $admin = new Aadmin();
         $admin->image = '/test';
         $admin->name = 'Super Admin';
         $admin->email = 'admin@gmail.com';
