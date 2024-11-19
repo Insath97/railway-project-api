@@ -7,6 +7,7 @@ use App\Http\Requests\HandleLoginRequest;
 use App\Http\Requests\SendResetLinkRequest;
 use App\Http\Resources\AdminLoginResource;
 use App\Mail\PasswordResetMail;
+use App\Models\Aadmin;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,7 @@ class AuthController extends Controller
 {
     public function handlelogin(HandleLoginRequest $request)
     {
-        $admin = Admin::where('email', $request->email)->first();
+        $admin = Aadmin::where('email', $request->email)->first();
 
         if (!$admin || !Hash::check($request->password, $admin->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
@@ -51,7 +52,7 @@ class AuthController extends Controller
     public function sendRestLink(SendResetLinkRequest $request)
     {
         $token = Str::random(70);
-        $admin = Admin::where('email', $request->email)->first();
+        $admin = Aadmin::where('email', $request->email)->first();
 
         if (!$admin) {
             return response()->json(['message' => 'Email address not found'], 404);
@@ -73,7 +74,7 @@ class AuthController extends Controller
 
     public function handleResetPassword(Request $request)
     {
-        $admin = Admin::where('email', $request->email)
+        $admin = Aadmin::where('email', $request->email)
             ->where('remember_token', $request->token)
             ->first();
 
