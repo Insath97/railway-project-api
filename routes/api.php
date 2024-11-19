@@ -30,8 +30,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     /* reset password */
     Route::get('reset-password/{token}', [AuthController::class, 'ResetPassword'])->name('reset-password');
     Route::post('reset-password', [AuthController::class, 'handleResetPassword'])->name('reset-password.send');
-
-    Route::apiResource('users', UserRolesController::class);
 });
 
 /* set middleware 'middleware' => ['auth:sanctum', 'admin']] */
@@ -69,5 +67,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
     Route::apiResource('roles', RolesController::class);
 
     /* users */
-    // Route::apiResource('users', UserRolesController::class);
+    Route::apiResource('users', UserRolesController::class);
 });
