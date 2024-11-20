@@ -40,6 +40,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
     Route::apiResource('office', OfficeController::class);
 
     /* warehouse */
+    Route::get('get-warehouse/{id}', [WarehouseController::class, 'getWarehouse']);
     Route::apiResource('warehouse', WarehouseController::class);
 
     /* MainCategories */

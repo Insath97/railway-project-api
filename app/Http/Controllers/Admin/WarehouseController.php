@@ -81,4 +81,26 @@ class WarehouseController extends Controller
             200
         );
     }
+
+    public function getWarehouse(string $id)
+    {
+        $warehouse = Warehouse::where(['office_id' => $id, 'delete_status' => 1])
+            ->select('id', 'warehouse_code', 'warehouse_name')
+            ->orderBy('warehouse_name', 'asc')
+            ->get();
+
+        if ($warehouse->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No warehouse data found for the specified Office',
+                'data' => []
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Warehouse retrieved successfully',
+            'data' => $warehouse
+        ], 200);
+    }
 }
