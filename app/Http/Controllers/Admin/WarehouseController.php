@@ -14,7 +14,7 @@ class WarehouseController extends Controller
 
     public function index()
     {
-        $warehouses = Warehouse::where('delete_status', 1)->get();
+        $warehouses = Warehouse::with('office')->where('delete_status', 1)->get();
 
         if ($warehouses->isEmpty()) {
             return response()->json(['message' => 'No Data Found'], 200);
@@ -43,11 +43,21 @@ class WarehouseController extends Controller
 
     public function show(string $warehouse)
     {
-        $warehouses = Warehouse::find($warehouse);
+        $warehouse = Warehouse::with('office')->where('delete_status', 1)->find($warehouse);
+
+        if (!$warehouse) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Warehouse not found',
+            ], 404);
+        }
+
         return response()->json([
-            'data' => new WarehouseResource($warehouses),
+            'status' => 'success',
+            'data' => new WarehouseResource($warehouse),
         ], 200);
     }
+
 
     public function edit(string $id) {}
 
