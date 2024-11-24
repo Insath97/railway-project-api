@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Product_StockController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\StockInController;
+use App\Http\Controllers\Admin\StockOutController;
 use App\Http\Controllers\Admin\SubCategoriesController;
 use App\Http\Controllers\Admin\UnitTypeController;
 use App\Http\Controllers\Admin\UserRolesController;
@@ -62,6 +63,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
 
     /* product stocks in or out */
     Route::apiResource('stock-in', StockInController::class);
+    Route::apiResource('stock-out', StockOutController::class);
 
     /* permission  */
     Route::apiResource('permission', PermissionController::class);

@@ -7,7 +7,7 @@ use App\Models\ProductStock;
 use App\Models\StockTransaction;
 use Illuminate\Http\Request;
 
-class StockInController extends Controller
+class StockOutController extends Controller
 {
     public function index() {}
 
@@ -22,33 +22,37 @@ class StockInController extends Controller
             'remarks' => 'nullable|string|max:255',
         ]);
 
-       /*  $user = auth()->guard('admin')->user();
+        /*  $user = auth()->guard('admin')->user();
 
         if ($user->warehouse_id && $user->warehouse_id != $request->warehouse_id) {
             return response()->json(['status' => 'error', 'message' => 'Unauthorized access to this warehouse'], 403);
         } */
 
-        // Record stock transaction
-        $stock_in = new StockTransaction();
-        $stock_in->product_id = $request->product_id;
-        $stock_in->warehouse_id = $request->warehouse_id;
-        $stock_in->transaction_type = 'in';
-        $stock_in->quantity = $request->quantity;
-        $stock_in->remarks = $request->remarks;
-        $stock_in->save();
-
-        /* Update or create product stock */
-        $productStock = ProductStock::firstOrNew([
+        $productStock = ProductStock::where([
             'product_id' => $request->product_id,
             'warehouse_id' => $request->warehouse_id,
-        ]);
-        $productStock->quantity += $request->quantity;
+        ])->first();
+
+        if (!$productStock || $productStock->quantity < $request->quantity) {
+            return response()->json(['status' => 'error', 'message' => 'Insufficient stock available'], 400);
+        }
+
+        // Record stock transaction
+        $stock_out = new StockTransaction();
+        $stock_out->product_id = $request->product_id;
+        $stock_out->warehouse_id = $request->warehouse_id;
+        $stock_out->transaction_type = 'in';
+        $stock_out->quantity = $request->quantity;
+        $stock_out->remarks = $request->remarks;
+        $stock_out->save();
+
+       $productStock->quantity -= $request->quantity;
         $productStock->save();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Stock added successfully',
-            'data' => $stock_in,
+            'message' => 'Stock out successfully',
+            'data' => $stock_out,
         ], 201);
     }
 
