@@ -11,7 +11,7 @@ class UserRolesController extends Controller
 {
     public function index()
     {
-        $users = Aadmin::with('office', 'warehouse')->all();
+        $users = Aadmin::with('office', 'warehouse')->get();
 
         if ($users->isEmpty()) {
             return response()->json(['message' => 'No Data Found'], 200);
