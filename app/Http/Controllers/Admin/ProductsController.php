@@ -13,7 +13,7 @@ class ProductsController extends Controller
 {
     public function index()
     {
-        $products = Product::where('delete_status', 1)->get();
+        $products = Product::with('productStocks')->where('delete_status', 1)->get();
 
         if ($products->isEmpty()) {
             return response()->json(['message' => 'No Data Found'], 200);
@@ -46,7 +46,7 @@ class ProductsController extends Controller
 
     public function show(string $products)
     {
-        $products = Product::find($products);
+        $products = Product::with('productStocks')->find($products);
 
         return response()->json([
             'data' => new ProductsResource($products),
