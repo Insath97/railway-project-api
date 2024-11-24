@@ -91,7 +91,7 @@ class ProductsController extends Controller
 
     public function getProducts(Request $request)
     {
-        $product = Product::where('code', $request->code)
+        $product = Product::with(['mainCategory','subCategory','unitType'])->where('code', $request->code)
             ->orWhere('name', $request->name)
             ->first();
 
