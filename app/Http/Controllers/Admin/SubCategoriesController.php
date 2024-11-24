@@ -13,7 +13,7 @@ class SubCategoriesController extends Controller
 {
     public function index()
     {
-        $subCategory = SubCategory::where('delete_status', 1)->get();
+        $subCategory = SubCategory::with('mainCategory')->where('delete_status', 1)->get();
 
         if ($subCategory->isEmpty()) {
             return response()->json(['message' => 'No Data Found'], 200);
@@ -40,7 +40,7 @@ class SubCategoriesController extends Controller
 
     public function show(string $Subcategory)
     {
-        $subCategory = SubCategory::find($Subcategory);
+        $subCategory = SubCategory::with('mainCategory')->find($Subcategory);
 
         return response()->json([
             'data' => new SubCategoriesResource($subCategory),

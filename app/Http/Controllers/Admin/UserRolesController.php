@@ -11,7 +11,7 @@ class UserRolesController extends Controller
 {
     public function index()
     {
-        $users = Aadmin::all();
+        $users = Aadmin::with('office', 'warehouse')->all();
 
         if ($users->isEmpty()) {
             return response()->json(['message' => 'No Data Found'], 200);
@@ -40,7 +40,14 @@ class UserRolesController extends Controller
         ], 201);
     }
 
-    public function show(string $users) {}
+    public function show(string $users)
+    {
+        $users = Aadmin::with('office', 'warehouse')->find($users);
+
+        return response()->json([
+            'data' => new UserRolesResource($users),
+        ], 200);
+    }
 
     public function edit(string $id) {}
 
@@ -85,7 +92,6 @@ class UserRolesController extends Controller
                     'message' => 'Can\'t delete this user. This is the default role.'
                 ], 400);
             }
-
 
             $user->delete();
 
