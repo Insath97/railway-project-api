@@ -21,7 +21,7 @@ class AuthController extends Controller
 {
     public function handlelogin(HandleLoginRequest $request)
     {
-        $admin = Aadmin::where('email', $request->email)->first();
+        $admin = Aadmin::with('office','warehouse')->where('email', $request->email)->first();
 
         if (!$admin || !Hash::check($request->password, $admin->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
