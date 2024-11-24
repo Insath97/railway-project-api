@@ -26,7 +26,7 @@ class Product_StockController extends Controller
     {
         $product_stock = new ProductStock();
         $product_stock->product_id = $request->product_id;
-        $product_stock->warehouse_idquantity = $request->warehouse_idquantity;
+        $product_stock->warehouse_id = $request->warehouse_i;
         $product_stock->quantity = $request->quantity;
         $product_stock->save();
 

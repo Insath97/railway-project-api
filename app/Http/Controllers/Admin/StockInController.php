@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProductStock;
 use App\Models\StockTransaction;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,14 @@ class StockInController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'warehouse_id' => 'required|exists:warehouses,id',
+            'quantity' => 'required|numeric|min:1',
+            'remarks' => 'nullable|string|max:255',
+        ]);
+
+        // Record stock transaction
         $stock_in = new StockTransaction();
         $stock_in->product_id = $request->product_id;
         $stock_in->warehouse_id = $request->warehouse_id;
@@ -21,6 +30,14 @@ class StockInController extends Controller
         $stock_in->quantity = $request->quantity;
         $stock_in->remarks = $request->remarks;
         $stock_in->save();
+
+        /* Update or create product stock */
+        $productStock = ProductStock::firstOrNew([
+            'product_id' => $request->product_id,
+            'warehouse_id' => $request->warehouse_id,
+        ]);
+        $productStock->quantity += $request->quantity;
+        $productStock->save();
 
         return response()->json([
             'status' => 'success',
