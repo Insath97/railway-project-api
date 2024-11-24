@@ -56,6 +56,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
     Route::apiResource('unitType', UnitTypeController::class);
 
     /* products */
+    Route::get('get-product', [ProductsController::class, 'getProducts']);
     Route::apiResource('products', ProductsController::class);
 
     /* product stocks in or out */

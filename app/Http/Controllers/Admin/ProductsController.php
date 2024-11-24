@@ -88,4 +88,24 @@ class ProductsController extends Controller
             200
         );
     }
+
+    public function getProducts(Request $request)
+    {
+        $product = Product::where('code', $request->code)
+            ->orWhere('name', $request->name)
+            ->first();
+
+        if ($product) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Product details retrieved successfully',
+                'data' => $product,
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Product not found',
+        ], 404);
+    }
 }
