@@ -61,7 +61,7 @@ class ProductsController extends Controller
         $products->main_category_id = $request->main_category_id;
         $products->sub_category_id = $request->sub_category_id;
         $products->unitType_id = $request->unitType_id;
-        $products->code = $request->code;
+        // $products->code = $request->code;
         $products->name = $request->name;
         $products->color = $request->color;
         $products->size = $request->size;
