@@ -29,7 +29,7 @@ class StoreProductRequest extends FormRequest
             'unitType_id' => ['required', 'exists:unit_types,id'],
             'code' => ['required', 'string', 'unique:products,code', 'regex:/^[A-Z0-9]+$/', 'max:10'],
             'name' => ['required', 'string', 'max:255'],
-            'color' => ['nullable', 'string', 'max:50'],
+            'color' => ['required', 'string', 'max:50'],
             'size' => ['nullable', 'numeric', 'min:0'],
             'low_stock_threshold' => ['nullable', 'numeric', 'min:0'],
             'description' => ['nullable', 'string', 'max:500'],
