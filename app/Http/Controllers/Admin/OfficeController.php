@@ -9,6 +9,8 @@ use App\Http\Resources\OfficeResource;
 use App\Models\Office;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Stringable;
 
 class OfficeController extends Controller
 {
@@ -82,6 +84,24 @@ class OfficeController extends Controller
             'status' => 'success',
             'message' => 'Offices retrieved successfully',
             'data' => $offices
+        ], 200);
+    }
+
+    public function getDivisions(): JsonResponse
+    {
+        $json = file_get_contents(storage_path('app/divisions.json'));
+        $data = json_decode($json, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error decoding JSON'
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $data['divisions'] ?? [],
         ], 200);
     }
 }

@@ -37,6 +37,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 /* set middleware 'middleware' => ['auth:sanctum', 'admin']] */
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanctum']], function () {
 
+    /* divisions json file*/
+    Route::get('get-divisions', [OfficeController::class, 'getDivisions'])->name('get-divisions');
+
     /* office */
     Route::get('get-office', [OfficeController::class, 'getOffices'])->name('get-office');
     Route::apiResource('office', OfficeController::class);
