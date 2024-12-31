@@ -1,0 +1,24 @@
+{
+    "divisions": [
+        {
+            "id": 1,
+            "name": "Headquarters"
+        },
+        {
+            "id": 2,
+            "name": "Lower Division"
+        },
+        {
+            "id": 3,
+            "name": "Upper Division"
+        },
+        {
+            "id": 4,
+            "name": "Division 1"
+        },
+        {
+            "id": 5,
+            "name": "Division 2"
+        }
+    ]
+}

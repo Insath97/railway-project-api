@@ -89,16 +89,30 @@ class OfficeController extends Controller
 
     public function getDivisions(): JsonResponse
     {
-        $json = file_get_contents(storage_path('app/divisions.json'));
+        // Path to the JSON file
+        $filePath = resource_path('json/divisions.json');
+
+        // Check if the file exists
+        if (!file_exists($filePath)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'File not found'
+            ], 404);
+        }
+
+        // Read the JSON file
+        $json = file_get_contents($filePath);
         $data = json_decode($json, true);
 
+        // Check for JSON decoding errors
         if (json_last_error() !== JSON_ERROR_NONE) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error decoding JSON'
+                'message' => 'Error decoding JSON: ' . json_last_error_msg()
             ], 500);
         }
 
+        // Return the divisions
         return response()->json([
             'success' => true,
             'data' => $data['divisions'] ?? [],
