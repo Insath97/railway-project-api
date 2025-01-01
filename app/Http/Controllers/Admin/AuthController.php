@@ -21,7 +21,7 @@ class AuthController extends Controller
 {
     public function handlelogin(HandleLoginRequest $request)
     {
-        $admin = Aadmin::with('office','warehouse')->where('email', $request->email)->first();
+        $admin = Aadmin::with('office', 'warehouse')->where('email', $request->email)->first();
 
         if (!$admin || !Hash::check($request->password, $admin->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
@@ -29,10 +29,16 @@ class AuthController extends Controller
 
         $token = $admin->createToken('Admin Token')->plainTextToken;
 
+        // Fetch roles and permissions
+        $roles = $admin->getRoleNames(); // Get role names as an array
+        $permissions = $admin->getAllPermissions()->pluck('name'); // Get permission names as an array
+
         return response()->json([
             'message' => 'Login successful',
             'token' => $token,
-            'data' => $admin
+            'data' => $admin,
+            'roles' => $roles,
+            'permissions' => $permissions,
         ], 200);
 
         /* return new AdminLoginResource($admin->setAttribute('plainTextToken', $token)); */
