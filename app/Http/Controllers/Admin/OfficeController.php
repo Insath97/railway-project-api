@@ -118,4 +118,19 @@ class OfficeController extends Controller
             'data' => $data['divisions'] ?? [],
         ], 200);
     }
+
+    public function getOfficesDivision(string $division_name): JsonResponse
+    {
+        $offices = Office::where('division', $division_name)
+            ->where('delete_status', 1)
+            ->select('id', 'code', 'office_name')
+            ->orderBy('office_name', 'asc')
+            ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Offices retrieved successfully',
+            'data' => $offices
+        ], 200);
+    }
 }

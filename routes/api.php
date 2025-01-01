@@ -41,6 +41,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
     Route::get('get-divisions', [OfficeController::class, 'getDivisions'])->name('get-divisions');
 
     /* office */
+    Route::get('get-offices-division',[OfficeController::class, 'getOfficesDivision'])->name('get-offices-division');
     Route::get('get-office', [OfficeController::class, 'getOffices'])->name('get-office');
     Route::apiResource('office', OfficeController::class);
 
