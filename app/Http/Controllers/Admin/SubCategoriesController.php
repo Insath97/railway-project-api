@@ -30,6 +30,7 @@ class SubCategoriesController extends Controller
         $subCategory->main_category_id = $request->main_category_id;
         $subCategory->code = $request->code;
         $subCategory->name = $request->name;
+        $subCategory->description = $request->description;
         $subCategory->save();
 
         return response()->json([
@@ -55,6 +56,7 @@ class SubCategoriesController extends Controller
         $subCategory->main_category_id = $request->main_category_id;
         $subCategory->code = $request->code;
         $subCategory->name = $request->name;
+        $subCategory->description = $request->description;
         $subCategory->save();
 
         return response()->json([

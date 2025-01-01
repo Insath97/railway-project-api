@@ -13,6 +13,7 @@ class SubCategory extends Model
         'main_category_id',
         'code',
         'name',
+        'description',
         'delete_status'
     ];
 

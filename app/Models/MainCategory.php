@@ -12,6 +12,7 @@ class MainCategory extends Model
     protected $fillable = [
         'code',
         'name',
+        'description',
         'delete_status'
     ];
 
