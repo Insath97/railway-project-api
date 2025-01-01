@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->boolean('is_head_office')->default(0); // 0 => not head office, 1 => head office
             $table->boolean('delete_status')->default(1); // 1 => active, 0 => deleted
+            $table->string('division')->default('Default Office');
             $table->timestamps();
         });
     }
