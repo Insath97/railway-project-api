@@ -8,6 +8,8 @@ use App\Http\Requests\UserRoleUpdateRequest;
 use App\Http\Resources\UserRolesResource;
 use App\Models\Aadmin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserRoleMail;
 
 class UserRolesController extends Controller
 {
@@ -35,6 +37,8 @@ class UserRolesController extends Controller
         $users->save();
 
         $users->assignRole($request->role);
+
+        Mail::to($request->email)->send(new UserRoleMail($request->email, $request->password, $request->role));
 
         return response()->json([
             'message' => 'User created successfully',
