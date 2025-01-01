@@ -16,7 +16,8 @@ class Office extends Model
         'phone_number',
         'email',
         'is_head_office',
-        'delete_status'
+        'delete_status',
+        'division',
     ];
 
     public function warehouse()
