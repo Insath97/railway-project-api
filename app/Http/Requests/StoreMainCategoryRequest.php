@@ -25,7 +25,8 @@ class StoreMainCategoryRequest extends FormRequest
     {
         return [
             'code' => ['required','max:10','unique:main_categories,code'],
-            'name' => ['required','string','max:255']
+            'name' => ['required','string','max:255'],
+            'description' => ['nullable','string','max:255'],
         ];
     }
 
