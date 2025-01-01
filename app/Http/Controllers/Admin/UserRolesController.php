@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRoleStoreRequest;
+use App\Http\Requests\UserRoleUpdateRequest;
 use App\Http\Resources\UserRolesResource;
 use App\Models\Aadmin;
 use Illuminate\Http\Request;
@@ -22,7 +24,7 @@ class UserRolesController extends Controller
 
     public function create() {}
 
-    public function store(Request $request)
+    public function store(UserRoleStoreRequest $request)
     {
         $users = new Aadmin();
         $users->office_id = $request->office_id;
@@ -51,7 +53,7 @@ class UserRolesController extends Controller
 
     public function edit(string $id) {}
 
-    public function update(Request $request, string $id)
+    public function update(UserRoleUpdateRequest $request, string $id)
     {
 
         if ($request->has('password') && !empty($request->password)) {
