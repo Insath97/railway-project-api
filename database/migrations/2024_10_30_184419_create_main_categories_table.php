@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');
+            $table->string('description')->nullable();
             $table->boolean('delete_status')->default(1); // 1 => active, 0 => deleted
             $table->timestamps();
         });
