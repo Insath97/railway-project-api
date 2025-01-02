@@ -14,6 +14,13 @@ use Stringable;
 
 class OfficeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:Office Index'])->only('index','show','getOffices','getDivisions','getOfficesDivision');
+        $this->middleware(['permission:Office Create'])->only('create');
+        $this->middleware(['permission:Office Update'])->only('update');
+        $this->middleware(['permission:Office Delete'])->only('destroy');
+    }
     public function index()
     {
         $offices = Office::where('delete_status', 1)->get();
