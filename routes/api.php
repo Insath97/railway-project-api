@@ -32,6 +32,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     /* reset password */
     Route::get('reset-password/{token}', [AuthController::class, 'ResetPassword'])->name('reset-password');
     Route::post('reset-password', [AuthController::class, 'handleResetPassword'])->name('reset-password.send');
+
+    /* get all permissions */
+    Route::get('get-permission', [PermissionController::class, 'getPermission']);
 });
 
 /* set middleware 'middleware' => ['auth:sanctum', 'admin']] */

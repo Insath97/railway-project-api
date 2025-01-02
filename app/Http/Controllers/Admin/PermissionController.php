@@ -17,7 +17,7 @@ class PermissionController extends Controller
         $this->middleware(['permission:Permission Update'])->only('update');
         $this->middleware(['permission:Permission Delete'])->only('destroy');
     }
-    
+
     public function index()
     {
         $permission = Permission::orderBy('id', 'desc')->get();
@@ -91,5 +91,16 @@ class PermissionController extends Controller
                 'message' => 'An error occurred while deleting the permission: ' . $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function getPermission()
+    {
+        $permission = Permission::orderBy('id', 'desc')->get();
+
+        if ($permission->isEmpty()) {
+            return response()->json(['message' => 'No Data Found'], 200);
+        }
+
+        return PermissionResource::collection($permission);
     }
 }
