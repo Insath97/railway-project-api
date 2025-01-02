@@ -15,12 +15,12 @@ class UserRolesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['permission:User Role Index'])->only('index', 'show');
-        $this->middleware(['permission:User Role Create'])->only('store');
-        $this->middleware(['permission:User Role Update'])->only('update');
-        $this->middleware(['permission:User Role Delete'])->only('destroy');
+        $this->middleware(['permission:User Index'])->only('index', 'show');
+        $this->middleware(['permission:User Create'])->only('store');
+        $this->middleware(['permission:User Update'])->only('update');
+        $this->middleware(['permission:User Delete'])->only('destroy');
     }
-    
+
     public function index()
     {
         $users = Aadmin::with('office', 'warehouse')->get();
