@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 
 class MainCategoriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:Main Category Index'])->only('index', 'show', 'getMainCategory');
+        $this->middleware(['permission:Main Category Create'])->only('store');
+        $this->middleware(['permission:Main Category Update'])->only('update');
+        $this->middleware(['permission:Main Category Delete'])->only('destroy');
+    }
     public function index()
     {
         $MainCategories = MainCategory::where('delete_status', 1)->get();

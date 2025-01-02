@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class StockOutController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:Stock Out Index'])->only('index', 'show');
+        $this->middleware(['permission:Stock Out Create'])->only('store');
+        $this->middleware(['permission:Stock Out Update'])->only('update');
+        $this->middleware(['permission:Stock Out Delete'])->only('destroy');
+    }
+    
     public function index() {}
 
     public function create() {}

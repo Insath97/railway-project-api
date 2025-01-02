@@ -17,7 +17,7 @@ class OfficeController extends Controller
     public function __construct()
     {
         $this->middleware(['permission:Office Index'])->only('index','show','getOffices','getDivisions','getOfficesDivision');
-        $this->middleware(['permission:Office Create'])->only('create');
+        $this->middleware(['permission:Office Create'])->only('store');
         $this->middleware(['permission:Office Update'])->only('update');
         $this->middleware(['permission:Office Delete'])->only('destroy');
     }

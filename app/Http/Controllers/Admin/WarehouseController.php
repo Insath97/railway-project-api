@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 
 class WarehouseController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:Warehouse Index'])->only('index','show','getWarehouse');
+        $this->middleware(['permission:Warehouse Create'])->only('store');
+        $this->middleware(['permission:Warehouse Update'])->only('update');
+        $this->middleware(['permission:Warehouse Delete'])->only('destroy');
+    }
 
     public function index()
     {

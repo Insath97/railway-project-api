@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class StockInController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:Stock In Index'])->only('index', 'show');
+        $this->middleware(['permission:Stock In Create'])->only('store');
+        $this->middleware(['permission:Stock In Update'])->only('update');
+        $this->middleware(['permission:Stock In Delete'])->only('destroy');
+    }
+    
     public function index() {}
 
     public function create() {}

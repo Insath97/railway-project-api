@@ -11,6 +11,14 @@ use Illuminate\Http\Request;
 
 class SubCategoriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:Sub Category Index'])->only('index', 'show', 'getSubCategory');
+        $this->middleware(['permission:Sub Category Create'])->only('store');
+        $this->middleware(['permission:Sub Category Update'])->only('update');
+        $this->middleware(['permission:Sub Category Delete'])->only('destroy');
+    }
+    
     public function index()
     {
         $subCategory = SubCategory::with('mainCategory')->where('delete_status', 1)->get();

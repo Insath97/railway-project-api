@@ -41,15 +41,15 @@ return [
             'provider' => 'users',
         ],
 
-        'api' => [
+        'admin' => [
             'driver' => 'sanctum',
             'provider' => 'admins',
         ],
 
-        'admin' => [
+      /*   'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
-        ],
+        ], */
     ],
 
     /*

@@ -11,6 +11,14 @@ use Illuminate\Http\Request;
 
 class UnitTypeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:Unit Type Index'])->only('index', 'show', 'getUnitType');
+        $this->middleware(['permission:Unit Type Create'])->only('store');
+        $this->middleware(['permission:Unit Type Update'])->only('update');
+        $this->middleware(['permission:Unit Type Delete'])->only('destroy');
+    }
+    
     public function index()
     {
         $unitType = UnitType::where('delete_status', 1)->get();
