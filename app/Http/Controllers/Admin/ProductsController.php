@@ -11,6 +11,14 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:Product Index'])->only('index', 'show', 'getProducts');
+        $this->middleware(['permission:Product Create'])->only('store');
+        $this->middleware(['permission:Product Update'])->only('update');
+        $this->middleware(['permission:Product Delete'])->only('destroy');
+    }
+
     public function index()
     {
         $products = Product::with(['mainCategory','subCategory','unitType','productStocks'])->where('delete_status', 1)->get();

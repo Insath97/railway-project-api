@@ -11,12 +11,9 @@ class StockOutController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['permission:Stock Out Index'])->only('index', 'show');
-        $this->middleware(['permission:Stock Out Create'])->only('store');
-        $this->middleware(['permission:Stock Out Update'])->only('update');
-        $this->middleware(['permission:Stock Out Delete'])->only('destroy');
+        $this->middleware(['permission:Stock Out'])->only('store');
     }
-    
+
     public function index() {}
 
     public function create() {}
@@ -54,7 +51,7 @@ class StockOutController extends Controller
         $stock_out->remarks = $request->remarks;
         $stock_out->save();
 
-       $productStock->quantity -= $request->quantity;
+        $productStock->quantity -= $request->quantity;
         $productStock->save();
 
         return response()->json([

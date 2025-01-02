@@ -11,12 +11,9 @@ class StockInController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['permission:Stock In Index'])->only('index', 'show');
-        $this->middleware(['permission:Stock In Create'])->only('store');
-        $this->middleware(['permission:Stock In Update'])->only('update');
-        $this->middleware(['permission:Stock In Delete'])->only('destroy');
+        $this->middleware(['permission:Stock In'])->only('store');;
     }
-    
+
     public function index() {}
 
     public function create() {}
@@ -30,7 +27,7 @@ class StockInController extends Controller
             'remarks' => 'nullable|string|max:255',
         ]);
 
-       /*  $user = auth()->guard('admin')->user();
+        /*  $user = auth()->guard('admin')->user();
 
         if ($user->warehouse_id && $user->warehouse_id != $request->warehouse_id) {
             return response()->json(['status' => 'error', 'message' => 'Unauthorized access to this warehouse'], 403);
