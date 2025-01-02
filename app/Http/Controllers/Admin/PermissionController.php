@@ -10,7 +10,14 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware(['permission:Permission Index'])->only('index', 'show');
+        $this->middleware(['permission:Permission Create'])->only('store');
+        $this->middleware(['permission:Permission Update'])->only('update');
+        $this->middleware(['permission:Permission Delete'])->only('destroy');
+    }
+    
     public function index()
     {
         $permission = Permission::orderBy('id', 'desc')->get();
