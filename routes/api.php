@@ -35,6 +35,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     /* get all permissions */
     Route::get('get-permission', [PermissionController::class, 'getPermission']);
+
+    /* get roles and that role permission */
+    Route::get('roles-permissions', [RolesController::class, 'getRolesPermissions']);
 });
 
 /* set middleware 'middleware' => ['auth:sanctum', 'admin']] */

@@ -99,4 +99,21 @@ class RolesController extends Controller
             ], 500);
         }
     }
+
+    public function getRolesPermissions()
+    {
+        $roles = Role::with('permissions')->get();
+
+        $data = $roles->map(function ($role) {
+            return [
+                'role' => $role->name,
+                'permissions' => $role->permissions->pluck('name'),
+            ];
+        });
+
+        return response()->json([
+            'message' => 'All roles and permissions fetched successfully',
+            'data' => $data,
+        ], 200);
+    }
 }
