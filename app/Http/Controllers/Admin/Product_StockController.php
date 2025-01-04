@@ -43,4 +43,20 @@ class Product_StockController extends Controller
     public function update(Request $request, string $id) {}
 
     public function destroy(string $id) {}
+
+    public function getWarehouseProducts(string $id, string $office, string $warehouse)
+    {
+        $product_stock = ProductStock::with('product', 'warehouse')->where('warehouse_id', $id)->get();
+
+        if ($product_stock->isEmpty()) {
+            return response()->json(['message' => 'No Data Found'], 200);
+        }
+
+        return response()->json([
+            'message' => 'Products fetched successfully.',
+            'office' => $office,
+            'warehouse' => $warehouse,
+            'products' => $product_stock,
+        ], 200);
+    }
 }
