@@ -78,6 +78,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
     /* warehouse manager show products */
     Route::get('products/{office}/{warehouse}/{id}',[Product_StockController::class,'getWarehouseProducts']);
 
+    /* main category wise products */
+    Route::get('products/{office}/{warehouse}/{main_category}', [Product_StockController::class, 'getProductsByMainCategory']);
+
     /* permission  */
     Route::apiResource('permission', PermissionController::class);
 

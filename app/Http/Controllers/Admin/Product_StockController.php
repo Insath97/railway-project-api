@@ -59,4 +59,22 @@ class Product_StockController extends Controller
             'products' => $product_stock,
         ], 200);
     }
+
+    public function getProductsByMainCategory(string $main_category, string $office, string $warehouse)
+    {
+        $product_stock = ProductStock::with('product', 'warehouse')->where('warehouse_id', $warehouse)->whereHas('product', function ($query) use ($main_category) {
+            $query->where('main_category_id', $main_category);
+        })->get();
+
+        if ($product_stock->isEmpty()) {
+            return response()->json(['message' => 'No Data Found'], 200);
+        }
+
+        return response()->json([
+            'message' => 'Products fetched successfully.',
+            'office' => $office,
+            'warehouse' => $warehouse,
+            'products' => $product_stock,
+        ], 200);
+    }
 }

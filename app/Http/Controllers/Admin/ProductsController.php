@@ -21,7 +21,7 @@ class ProductsController extends Controller
 
     public function index()
     {
-        $products = Product::with(['mainCategory','subCategory','unitType','productStocks'])->where('delete_status', 1)->get();
+        $products = Product::with(['mainCategory', 'subCategory', 'unitType', 'productStocks'])->where('delete_status', 1)->get();
 
         if ($products->isEmpty()) {
             return response()->json(['message' => 'No Data Found'], 200);
@@ -99,7 +99,7 @@ class ProductsController extends Controller
 
     public function getProducts(Request $request)
     {
-        $product = Product::with(['mainCategory','subCategory','unitType'])->where('code', $request->code)
+        $product = Product::with(['mainCategory', 'subCategory', 'unitType'])->where('code', $request->code)
             ->orWhere('name', $request->name)
             ->first();
 
@@ -115,5 +115,10 @@ class ProductsController extends Controller
             'status' => 'error',
             'message' => 'Product not found',
         ], 404);
+    }
+
+    public function getProductsByMainCategory(string $main_category, string $office, string $warehouse)
+    {
+       
     }
 }
