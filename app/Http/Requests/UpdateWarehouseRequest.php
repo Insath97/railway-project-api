@@ -25,6 +25,7 @@ class UpdateWarehouseRequest extends FormRequest
     {
         $id = $this->route('warehouse');
         return [
+            'office_id' => ['required', 'exists:offices,id'],
             'warehouse_code' => ['required', 'unique:warehouses,warehouse_code,' . $id, 'max:10'],
             'warehouse_name' => ['required', 'max:255', 'string'],
             'address' => ['nullable', 'string', 'max:500'],
