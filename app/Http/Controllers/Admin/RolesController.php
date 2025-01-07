@@ -77,7 +77,7 @@ class RolesController extends Controller
             'status' => 'success',
             'message' => 'Role & permissions updated successfully',
             'data' => [
-                'role' => $roleWithPermissions,
+                'role' => $role,
                 'permissions' => $roleWithPermissions->permissions->pluck('name'),
             ],
         ], 200);
