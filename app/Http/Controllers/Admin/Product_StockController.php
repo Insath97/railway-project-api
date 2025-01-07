@@ -11,7 +11,7 @@ class Product_StockController extends Controller
 {
     public function index()
     {
-        $product_stock = ProductStock::with('product')->get();
+        $product_stock = ProductStock::with('product','warehouse')->get();
 
         if ($product_stock->isEmpty()) {
             return response()->json(['message' => 'No Data Found'], 200);
