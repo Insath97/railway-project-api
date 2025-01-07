@@ -35,10 +35,15 @@ class RolesController extends Controller
         $role = Role::create(['guard_name' => 'admin', 'name' => $request->name]);
         $role->syncPermissions($request->permissions);
 
+        $roleWithPermissions = Role::with('permissions')->findOrFail($role->id);
+
         return response()->json([
             'status' => 'success',
             'message' => 'Role created and permissions assigned successfully',
-            'data' => $role,
+            'data' => [
+                'role' => $roleWithPermissions,
+                'permissions' => $roleWithPermissions->permissions->pluck('name'),
+            ],
         ], 201);
     }
 
@@ -66,10 +71,15 @@ class RolesController extends Controller
         $role->update(['guard_name' => 'admin', 'name' => $request->name]);
         $role->syncPermissions($request->permissions);
 
+        $roleWithPermissions = Role::with('permissions')->findOrFail($role->id);
+
         return response()->json([
             'status' => 'success',
             'message' => 'Role & permissions updated successfully',
-            'data' => $role
+            'data' => [
+                'role' => $roleWithPermissions,
+                'permissions' => $roleWithPermissions->permissions->pluck('name'),
+            ],
         ], 200);
     }
 
