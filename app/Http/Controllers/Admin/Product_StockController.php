@@ -44,7 +44,7 @@ class Product_StockController extends Controller
 
     public function destroy(string $id) {}
 
-    public function getWarehouseProducts(string $id, string $office, string $warehouse)
+    public function getWarehouseProducts(string $id)
     {
         $product_stock = ProductStock::where('warehouse_id', $id)->get();
 
@@ -54,9 +54,7 @@ class Product_StockController extends Controller
 
         return response()->json([
             'message' => 'Products fetched successfully.',
-            'office' => $office,
-            'warehouse' => $warehouse,
-            'products' => $product_stock,
+            'data' => $product_stock,
         ], 200);
     }
 
