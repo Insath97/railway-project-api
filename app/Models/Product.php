@@ -38,12 +38,12 @@ class Product extends Model
 
     public function unitType()
     {
-        return $this->belongsTo(UnitType::class, 'unitType_id');
+        return $this->belongsTo(UnitType::class);
     }
 
     public function productStocks()
     {
-        return $this->hasMany(ProductStock::class,'product_id');
+        return $this->hasMany(ProductStock::class);
     }
 
     public function stockTransactions()
