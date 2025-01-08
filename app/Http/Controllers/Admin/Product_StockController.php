@@ -11,7 +11,7 @@ class Product_StockController extends Controller
 {
     public function index()
     {
-        $product_stock = ProductStock::with('product','warehouse')->get();
+        $product_stock = ProductStock::with('product', 'warehouse')->get();
 
         if ($product_stock->isEmpty()) {
             return response()->json(['message' => 'No Data Found'], 200);
@@ -46,7 +46,7 @@ class Product_StockController extends Controller
 
     public function getWarehouseProducts(string $id)
     {
-        $product_stock = ProductStock::with('product')->where('warehouse_id', $id)->get();
+        $product_stock = ProductStock::with('product', 'product.mainCategory', 'product.subCategory', 'product.unitType')->where('warehouse_id', $id)->get();
 
         if ($product_stock->isEmpty()) {
             return response()->json(['message' => 'No Data Found'], 200);
